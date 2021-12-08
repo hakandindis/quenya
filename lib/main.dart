@@ -7,10 +7,10 @@ import 'package:quenya/source/navigation/routes.dart';
 void main() async {
   await Hive.initFlutter();
 
-  Hive.registerAdapter(NoteModelAdapter());
-  await Hive.openBox<NoteModel>('notes');
+  Hive.registerAdapter<NoteModel>(NoteModelAdapter());
+  Hive.registerAdapter<TodoModel>(TodoModelAdapter());
 
-  Hive.registerAdapter(TodoModelAdapter());
+  await Hive.openBox<NoteModel>('notes');
   await Hive.openBox<TodoModel>('todos');
 
   runApp(const MyApp());

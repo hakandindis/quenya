@@ -36,6 +36,7 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
     todoModelManager = TodoModelManager(boxName);
 
     _dateController.text = _dateFormatter.format(_date);
+    priority = 2;
   }
 
   @override

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_constructors_in_immutables, unnecessary_string_interpolations
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -9,6 +9,7 @@ import 'package:quenya/source/navigation/routes.dart';
 
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:quenya/source/screen/todo_screens/selected_todo_screen.dart';
 
 class TodoScreen extends StatefulWidget {
   TodoScreen({Key? key}) : super(key: key);
@@ -74,6 +75,11 @@ class _TodoScreenState extends State<TodoScreen> {
               }
 
               return ListTile(
+                onTap: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => SelectedTodoScreen(index: index),
+                  ),
+                ),
                 tileColor: color,
                 title: Text(todoModel.title),
                 subtitle: Text(todoModel.description),

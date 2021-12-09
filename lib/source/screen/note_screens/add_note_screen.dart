@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:quenya/core/database/hivebox_manager.dart';
 import 'package:quenya/source/database/note/note_model.dart';
 import 'package:quenya/source/database/note/note_model_manager.dart';
-import 'package:quenya/source/navigation/routes.dart';
+
 
 class AddNoteScreen extends StatefulWidget {
   const AddNoteScreen({Key? key}) : super(key: key);
@@ -65,7 +65,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                     description: _descriptionController.text),
               );
 
-              Navigator.of(context).pushNamed(AppRoutes.noteScreen);
+              Navigator.of(context).pop();
             },
           ),
         ],

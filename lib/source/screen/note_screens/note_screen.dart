@@ -31,16 +31,6 @@ class _NoteScreenState extends State<NoteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed(AppRoutes.homeScreen);
-            },
-            icon: Icon(Icons.home),
-          ),
-        ],
-      ),
       floatingActionButton: FloatingActionButton(
         //backgroundColor: Colors.black,
         //child: Icon(Icons.add),
@@ -66,6 +56,7 @@ class _NoteScreenState extends State<NoteScreen> {
                     builder: (context) => SelectedNoteScreen(index: index))),
                 title: Text(noteModel!.title),
                 subtitle: Text(noteModel.description),
+                
               );
             },
           );

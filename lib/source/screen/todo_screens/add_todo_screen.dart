@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:quenya/core/database/hivebox_manager.dart';
 import 'package:quenya/source/database/todo/todo_model.dart';
 import 'package:quenya/source/database/todo/todo_model_manager.dart';
-import 'package:quenya/source/navigation/routes.dart';
 
 class AddTodoScreen extends StatefulWidget {
   const AddTodoScreen({Key? key}) : super(key: key);
@@ -65,22 +64,48 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      //appBar: AppBar(),
       body: SingleChildScrollView(
+        controller: ScrollController(initialScrollOffset: 2.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.all(20.0),
+              padding: EdgeInsets.fromLTRB(20, 40, 20, 20),
+              child: IconButton(
+                  onPressed: () => Navigator.of(context).pop(), icon: Icon(Icons.arrow_back_ios_new),),
+            ),
+            Padding(
+              padding: EdgeInsets.all(20),
               child: TextField(
+                keyboardType: TextInputType.text,
+                cursorColor: Colors.blue,
+                minLines: 1,
+                maxLines: 3,
                 controller: _titleController,
-                decoration: InputDecoration(border: OutlineInputBorder()),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25)),
+                  hintText: "Something",
+                  labelText: "Title",
+                ),
               ),
             ),
             Padding(
-              padding: EdgeInsets.all(20.0),
+              padding: EdgeInsets.all(20),
               child: TextField(
+                keyboardType: TextInputType.text,
+                cursorColor: Colors.blue,
+                minLines: 1,
+                maxLines: 3,
                 controller: _descriptionController,
-                decoration: InputDecoration(border: OutlineInputBorder()),
+                decoration: InputDecoration(
+                  hintText: "Something",
+                  labelText: "Description",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                ),
               ),
             ),
             Padding(
@@ -89,7 +114,11 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                 readOnly: true,
                 controller: _dateController,
                 onTap: _handleDatePicker,
-                decoration: InputDecoration(border: OutlineInputBorder()),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                ),
               ),
             ),
             Padding(
@@ -99,34 +128,40 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
                 children: [
                   Text("Priority", style: TextStyle(fontSize: 20)),
                   PriorityButton(
-                      name: "Low",
-                      color: Colors.red[300],
-                      setPriority: () => priority = 1),
+                    color: Colors.green,
+                    setPriority: () => priority = 1,
+                    icon: Icon(Icons.looks_one_outlined),
+                  ),
                   PriorityButton(
-                      name: "Medium",
-                      color: Colors.yellow[300],
-                      setPriority: () => priority = 2),
+                    color: Colors.yellow,
+                    setPriority: () => priority = 2,
+                    icon: Icon(Icons.looks_two_outlined),
+                  ),
                   PriorityButton(
-                      name: "High",
-                      color: Colors.green[300],
-                      setPriority: () => priority = 3),
+                    color: Colors.red,
+                    setPriority: () => priority = 3,
+                    icon: Icon(Icons.looks_3_outlined),
+                  ),
                 ],
               ),
             ),
-            IconButton(
-              icon: Icon(Icons.send),
-              onPressed: () {
-                todoModelManager.addItem(
-                  TodoModel(
-                    title: _titleController.text,
-                    description: _descriptionController.text,
-                    dateTime: _date,
-                    status: 0,
-                    priority: priority,
-                  ),
-                );
-                Navigator.of(context).pushNamed(AppRoutes.todoScreen);
-              },
+            Center(
+              child: IconButton(
+                iconSize: 40,
+                icon: Icon(Icons.save),
+                onPressed: () {
+                  todoModelManager.addItem(
+                    TodoModel(
+                      title: _titleController.text,
+                      description: _descriptionController.text,
+                      dateTime: _date,
+                      status: 0,
+                      priority: priority,
+                    ),
+                  );
+                  Navigator.of(context).pop();
+                },
+              ),
             ),
           ],
         ),
@@ -137,13 +172,49 @@ class _AddTodoScreenState extends State<AddTodoScreen> {
 
 class PriorityButton extends StatelessWidget {
   final Color? color;
-  final String name;
+  final Icon icon;
+
   Function() setPriority;
   PriorityButton({
+    required this.icon,
+    required this.color,
+    required this.setPriority,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      color: color,
+      onPressed: setPriority,
+      icon: icon,
+      iconSize: 40,
+    );
+  }
+}
+
+class PrioritysButton extends StatelessWidget {
+  final Color? color;
+  final String name;
+  Function() setPriority;
+  PrioritysButton({
     required this.name,
     required this.color,
     required this.setPriority,
   });
+
+  final String x = """ 
+  PriorityButton(
+                      name: "Low",
+                      color: Colors.red[300],
+                      setPriority: () => priority = 1),
+                  PriorityButton(
+                      name: "Medium",
+                      color: Colors.yellow[300],
+                      setPriority: () => priority = 2),
+                  PriorityButton(
+                      name: "High",
+                      color: Colors.green[300],
+                      setPriority: () => priority = 3),""";
 
   @override
   Widget build(BuildContext context) {

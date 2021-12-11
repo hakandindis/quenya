@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:quenya/source/screen/home_screen.dart';
 import 'package:quenya/source/screen/note_screens/add_note_screen.dart';
 import 'package:quenya/source/screen/note_screens/note_screen.dart';
 import 'package:quenya/source/screen/opening_screen.dart';
@@ -21,7 +20,6 @@ class AppRoutes {
 
   static Map<String, WidgetBuilder> define() {
     return {
-      homeScreen: (context) => HomeScreen(),
       noteScreen: (context) => NoteScreen(),
       addNoteScreen: (context) => AddNoteScreen(),
       todoScreen: (context) => TodoScreen(),

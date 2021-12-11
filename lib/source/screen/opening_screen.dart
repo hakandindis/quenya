@@ -41,9 +41,9 @@ class _OpeningScreenState extends State<OpeningScreen> {
       onTap: _navigateBottomBar,
       //backgroundColor: Colors.white,
       items: [
-        BottomNavigationBarItem(icon: Icon(Icons.note_alt_outlined), label: ""),
+        BottomNavigationBarItem(icon: Icon(Icons.note_alt_outlined), label: "Notes"),
         //BottomNavigationBarItem(icon: Icon(Icons.home), label: ""),
-        BottomNavigationBarItem(icon: Icon(Icons.today_outlined), label: ""),
+        BottomNavigationBarItem(icon: Icon(Icons.today_outlined), label: "Todos"),
       ],
     );
   }

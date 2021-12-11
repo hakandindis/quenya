@@ -16,14 +16,14 @@ class SelectedNoteScreen extends StatefulWidget {
 }
 
 class _SelectedNoteScreenState extends State<SelectedNoteScreen> {
-  _SelectedNoteScreenState() : super();
-
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
 
   final String boxName = "notes";
   late IHiveBoxManager noteModelManager;
-  late final NoteModel _noteModel;
+
+  late int priority;
+  late final NoteModel noteModel;
 
   @override
   void initState() {
@@ -32,10 +32,10 @@ class _SelectedNoteScreenState extends State<SelectedNoteScreen> {
     _descriptionController = TextEditingController();
     noteModelManager = NoteModelManager(boxName);
 
-    _noteModel = noteModelManager.readItem(widget.index);
+    noteModel = noteModelManager.readItem(widget.index);
 
-    _titleController.text = _noteModel.title;
-    _descriptionController.text = _noteModel.description;
+    _titleController.text = noteModel.title;
+    _descriptionController.text = noteModel.description;
   }
 
   @override
@@ -48,43 +48,79 @@ class _SelectedNoteScreenState extends State<SelectedNoteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(20.0),
-            child: TextField(
-              controller: _titleController,
-              decoration: InputDecoration(border: OutlineInputBorder()),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(20, 40, 20, 20),
+              child: IconButton(
+                onPressed: () => Navigator.of(context).pop(),
+                icon: Icon(Icons.arrow_back_ios_new),
+              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(20.0),
-            child: TextField(
-              controller: _descriptionController,
-              decoration: InputDecoration(border: OutlineInputBorder()),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: TextField(
+                keyboardType: TextInputType.text,
+                cursorColor: Colors.blue,
+                minLines: 1,
+                maxLines: 3,
+                controller: _titleController,
+                decoration: InputDecoration(
+                  hintText: "Something",
+                  labelText: "Title",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                ),
+              ),
             ),
-          ),
-          IconButton(
-            icon: Icon(Icons.upgrade),
-            onPressed: () {
-              noteModelManager.updateItem(
-                NoteModel(
-                    title: _titleController.text,
-                    description: _descriptionController.text),
-                widget.index,
-              );
-              Navigator.of(context).pushNamed(AppRoutes.noteScreen);
-            },
-          ),
-          IconButton(
-            icon: Icon(Icons.delete_outline),
-            onPressed: () {
-              noteModelManager.deleteItem(widget.index);
-              Navigator.of(context).pushNamed(AppRoutes.noteScreen);
-            },
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.all(20.0),
+              child: TextField(
+                keyboardType: TextInputType.text,
+                cursorColor: Colors.blue,
+                minLines: 1,
+                maxLines: 3,
+                controller: _descriptionController,
+                decoration: InputDecoration(
+                  hintText: "Something",
+                  labelText: "Description",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                ),
+              ),
+            ),
+            Center(
+              child: IconButton(
+                iconSize: 40,
+                icon: Icon(Icons.save),
+                onPressed: () {
+                  noteModelManager.updateItem(
+                    NoteModel(
+                      title: _titleController.text,
+                      description: _descriptionController.text,
+                    ),
+                    widget.index,
+                  );
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+            Center(
+              child: IconButton(
+                iconSize: 40,
+                icon: Icon(Icons.delete_outline_rounded),
+                onPressed: () {
+                  noteModelManager.deleteItem(widget.index);
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -111,7 +111,7 @@ class _TodoScreenState extends State<TodoScreen> {
           padding: EdgeInsets.all(20),
           child: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(20),
               color: Colors.grey[200],
             ),
             child: Padding(

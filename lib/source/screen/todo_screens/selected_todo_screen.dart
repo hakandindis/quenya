@@ -171,7 +171,7 @@ class _SelectedTodoScreenState extends State<SelectedTodoScreen> {
                     ),
                     widget.index,
                   );
-                  Navigator.of(context).pushNamed(AppRoutes.openingScreen);
+                  Navigator.of(context).pop();
                 },
               ),
             ),
@@ -181,7 +181,7 @@ class _SelectedTodoScreenState extends State<SelectedTodoScreen> {
                 icon: Icon(Icons.delete_outline_rounded),
                 onPressed: () {
                   todoModelManager.deleteItem(widget.index);
-                  Navigator.of(context).pushNamed(AppRoutes.openingScreen);
+                  Navigator.of(context).pop();
                 },
               ),
             ),
@@ -214,31 +214,3 @@ class PriorityButton extends StatelessWidget {
   }
 }
 
-class PrioritysButton extends StatelessWidget {
-  final Color? color;
-  final String name;
-  Function() setPriority;
-  PrioritysButton({
-    required this.name,
-    required this.color,
-    required this.setPriority,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: setPriority,
-      child: Container(
-        width: 55,
-        height: 55,
-        child: Center(
-            child: Text(
-          name,
-          style: TextStyle(fontSize: 15),
-        )),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20), color: color),
-      ),
-    );
-  }
-}

@@ -5,7 +5,6 @@ import 'package:quenya/core/database/hivebox_manager.dart';
 import 'package:quenya/source/database/note/note_model.dart';
 import 'package:quenya/source/database/note/note_model_manager.dart';
 
-
 class AddNoteScreen extends StatefulWidget {
   const AddNoteScreen({Key? key}) : super(key: key);
 
@@ -19,14 +18,14 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
 
   final String boxName = "notes";
   late IHiveBoxManager noteModelManager;
-  //late final NoteModel _noteModel;
+
   @override
   void initState() {
     super.initState();
     _titleController = TextEditingController();
     _descriptionController = TextEditingController();
+
     noteModelManager = NoteModelManager(boxName);
-    //_noteModel=NoteModel(description: '', title: '');
   }
 
   @override
@@ -39,36 +38,69 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: [
-          Padding(
-            padding: EdgeInsets.all(20.0),
-            child: TextField(
-              controller: _titleController,
-              decoration: InputDecoration(border: OutlineInputBorder()),
+      //appBar: AppBar(),
+      body: SingleChildScrollView(
+        controller: ScrollController(initialScrollOffset: 2.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.fromLTRB(20, 40, 20, 20),
+              child: IconButton(
+                onPressed: () => Navigator.of(context).pop(),
+                icon: Icon(Icons.arrow_back_ios_new),
+              ),
             ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(20.0),
-            child: TextField(
-              controller: _descriptionController,
-              decoration: InputDecoration(border: OutlineInputBorder()),
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: TextField(
+                keyboardType: TextInputType.text,
+                cursorColor: Colors.blue,
+                minLines: 1,
+                maxLines: 3,
+                controller: _titleController,
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(25)),
+                  hintText: "Something",
+                  labelText: "Title",
+                ),
+              ),
             ),
-          ),
-          IconButton(
-            icon: Icon(Icons.send),
-            onPressed: () {
-              noteModelManager.addItem(
-                NoteModel(
-                    title: _titleController.text,
-                    description: _descriptionController.text),
-              );
-
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
+            Padding(
+              padding: EdgeInsets.all(20),
+              child: TextField(
+                keyboardType: TextInputType.text,
+                cursorColor: Colors.blue,
+                minLines: 1,
+                maxLines: 3,
+                controller: _descriptionController,
+                decoration: InputDecoration(
+                  hintText: "Something",
+                  labelText: "Description",
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                ),
+              ),
+            ),
+            Center(
+              child: IconButton(
+                iconSize: 40,
+                icon: Icon(Icons.save),
+                onPressed: () {
+                  noteModelManager.addItem(
+                    NoteModel(
+                      title: _titleController.text,
+                      description: _descriptionController.text,
+                    ),
+                  );
+                  Navigator.of(context).pop();
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

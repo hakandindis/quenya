@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:quenya/core/database/hivebox_manager.dart';
 import 'package:quenya/source/database/todo/todo_model.dart';
 import 'package:quenya/source/database/todo/todo_model_manager.dart';
-import 'package:quenya/source/navigation/routes.dart';
 
 class SelectedTodoScreen extends StatefulWidget {
   const SelectedTodoScreen({Key? key, required this.index}) : super(key: key);
@@ -213,4 +212,3 @@ class PriorityButton extends StatelessWidget {
     );
   }
 }
-

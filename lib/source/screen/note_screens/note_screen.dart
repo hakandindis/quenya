@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, prefer_const_declarations
 
 import 'package:flutter/material.dart';
 import 'package:quenya/core/database/hivebox_manager.dart';
